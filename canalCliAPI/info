@@ -1,0 +1,359 @@
+2019-10-03 15:52:33 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000010:352184604] , name[,] , eventType : UPDATE
+2019-10-03 15:52:33 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 15:53:49 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:219] , name[test,t1] , eventType : CREATE
+2019-10-03 15:53:49 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:CREATE TABLE t1 (
+	id INT(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	name VARCHAR(10) NOT NULL COLLATE 'utf8_bin',
+	date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+2019-10-03 15:53:50 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:136) ]
+INFO:ERROR SQL EXECUTE:CREATE TABLE t1 (
+	id INT(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	name VARCHAR(10) NOT NULL COLLATE 'utf8_bin',
+	date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+2019-10-03 15:55:29 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:219] , name[test,t1] , eventType : CREATE
+2019-10-03 15:55:29 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:CREATE TABLE t1 (
+	id INT(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	name VARCHAR(10) NOT NULL COLLATE 'utf8_bin',
+	date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+2019-10-03 15:55:30 下午 [Thread: main][ Method: com.canal.mysql.helper.MySQLHelper.executeSQL(MySQLHelper.java:222) ]
+ERROR:java.sql.SQLSyntaxErrorException: Table 't1' already exists [url:]jdbc:mysql://localhost:3306/test?serverTimezone=UTC,[user]:root,[password]:123456,[sql]:CREATE TABLE t1 (
+	id INT(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	name VARCHAR(10) NOT NULL COLLATE 'utf8_bin',
+	date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+2019-10-03 15:55:30 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:136) ]
+INFO:ERROR SQL EXECUTE:CREATE TABLE t1 (
+	id INT(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	name VARCHAR(10) NOT NULL COLLATE 'utf8_bin',
+	date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+2019-10-03 15:55:59 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:219] , name[test,t1] , eventType : CREATE
+2019-10-03 15:55:59 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:CREATE TABLE t1 (
+	id INT(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	name VARCHAR(10) NOT NULL COLLATE 'utf8_bin',
+	date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+2019-10-03 15:56:00 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:136) ]
+INFO:ERROR SQL EXECUTE:CREATE TABLE t1 (
+	id INT(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	name VARCHAR(10) NOT NULL COLLATE 'utf8_bin',
+	date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+2019-10-03 15:57:05 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:219] , name[test,t1] , eventType : CREATE
+2019-10-03 15:57:05 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:CREATE TABLE t1 (
+	id INT(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	name VARCHAR(10) NOT NULL COLLATE 'utf8_bin',
+	date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+2019-10-03 15:57:49 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:219] , name[test,t1] , eventType : CREATE
+2019-10-03 15:57:49 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:CREATE TABLE t1 (
+	id INT(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	name VARCHAR(10) NOT NULL COLLATE 'utf8_bin',
+	date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+2019-10-03 15:57:50 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:136) ]
+INFO:ERROR SQL EXECUTE:CREATE TABLE t1 (
+	id INT(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	name VARCHAR(10) NOT NULL COLLATE 'utf8_bin',
+	date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+2019-10-03 15:58:05 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:219] , name[test,t1] , eventType : CREATE
+2019-10-03 15:58:05 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:CREATE TABLE t1 (
+	id INT(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	name VARCHAR(10) NOT NULL COLLATE 'utf8_bin',
+	date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+2019-10-03 19:01:46 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:219] , name[test,t1] , eventType : CREATE
+2019-10-03 19:01:46 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:CREATE TABLE t1 (
+	id INT(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	name VARCHAR(10) NOT NULL COLLATE 'utf8_bin',
+	date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+2019-10-03 19:01:47 下午 [Thread: main][ Method: com.canal.mysql.helper.MySQLHelper.executeSQL(MySQLHelper.java:222) ]
+ERROR:java.sql.SQLSyntaxErrorException: Table 't1' already exists [url:]jdbc:mysql://localhost:3306/test?serverTimezone=UTC,[user]:root,[password]:123456,[sql]:CREATE TABLE t1 (
+	id INT(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	name VARCHAR(10) NOT NULL COLLATE 'utf8_bin',
+	date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+2019-10-03 19:01:47 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:136) ]
+INFO:ERROR SQL EXECUTE:CREATE TABLE t1 (
+	id INT(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	name VARCHAR(10) NOT NULL COLLATE 'utf8_bin',
+	date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+2019-10-03 19:02:44 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:219] , name[test,t1] , eventType : CREATE
+2019-10-03 19:02:44 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:CREATE TABLE t1 (
+	id INT(8) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	name VARCHAR(10) NOT NULL COLLATE 'utf8_bin',
+	date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+2019-10-03 19:02:45 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:566] , name[,] , eventType : UPDATE
+2019-10-03 19:02:45 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:02:45 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:645] , name[test,t1] , eventType : INSERT
+2019-10-03 19:02:45 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:INSERT INTO t1(id,name) values(1,'aaa'),(2,'bbb'),(3,'ccc'),(4,'ddd'),(5,'eee'),(6,'fff'),(7,'ggg'),(8,'hhh')
+2019-10-03 19:02:45 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:828] , name[,] , eventType : UPDATE
+2019-10-03 19:02:45 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:02:45 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:924] , name[test,t2] , eventType : CREATE
+2019-10-03 19:02:45 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:CREATE TABLE t2 (
+	id int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,
+	name varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+	money int(10) unsigned DEFAULT '0',
+	date_time timestamp NULL DEFAULT NULL,
+	date date DEFAULT NULL,
+	date_notime datetime DEFAULT NULL,
+	date_flag int(10) unsigned DEFAULT NULL,
+	PRIMARY KEY (id),
+	KEY date_time (date_time) USING BTREE,
+	KEY date_flag (date_flag) USING BTREE
+) ENGINE=InnoDB
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:2907] , name[,] , eventType : UPDATE
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:3042] , name[test,t2] , eventType : INSERT
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:3106] , name[,] , eventType : UPDATE
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:3202] , name[,] , eventType : UPDATE
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:3337] , name[test,t2] , eventType : INSERT
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:3401] , name[,] , eventType : UPDATE
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:3497] , name[,] , eventType : UPDATE
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:3632] , name[test,t2] , eventType : INSERT
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:3696] , name[,] , eventType : UPDATE
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:3792] , name[,] , eventType : UPDATE
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:3927] , name[test,t2] , eventType : INSERT
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:4049] , name[,] , eventType : UPDATE
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:4145] , name[,] , eventType : UPDATE
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:4280] , name[test,t2] , eventType : INSERT
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:4344] , name[,] , eventType : UPDATE
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:4440] , name[,] , eventType : UPDATE
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:4575] , name[test,t2] , eventType : INSERT
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:4813] , name[,] , eventType : UPDATE
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:4909] , name[,] , eventType : UPDATE
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:5044] , name[test,t2] , eventType : INSERT
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:5108] , name[,] , eventType : UPDATE
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:5204] , name[,] , eventType : UPDATE
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:5339] , name[test,t2] , eventType : INSERT
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:5809] , name[,] , eventType : UPDATE
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:5905] , name[,] , eventType : UPDATE
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:6040] , name[test,t2] , eventType : INSERT
+2019-10-03 19:04:52 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:6104] , name[,] , eventType : UPDATE
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:6200] , name[,] , eventType : UPDATE
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:6335] , name[test,t2] , eventType : INSERT
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:7269] , name[,] , eventType : UPDATE
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:7365] , name[,] , eventType : UPDATE
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:7500] , name[test,t2] , eventType : INSERT
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:7564] , name[,] , eventType : UPDATE
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:7660] , name[,] , eventType : UPDATE
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:7795] , name[test,t2] , eventType : INSERT
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:9657] , name[,] , eventType : UPDATE
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:9753] , name[,] , eventType : UPDATE
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:9888] , name[test,t2] , eventType : INSERT
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:9952] , name[,] , eventType : UPDATE
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:10048] , name[,] , eventType : UPDATE
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:10183] , name[test,t2] , eventType : INSERT
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:13901] , name[,] , eventType : UPDATE
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:13997] , name[,] , eventType : UPDATE
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:14132] , name[test,t2] , eventType : INSERT
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:14196] , name[,] , eventType : UPDATE
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:14292] , name[,] , eventType : UPDATE
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:14427] , name[test,t2] , eventType : INSERT
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:114) ]
+INFO:================; binlog[mysql-bin.000012:21857] , name[,] , eventType : UPDATE
+2019-10-03 19:04:53 下午 [Thread: main][ Method: com.canal.mysql.CanalClient.tansferEntry(CanalClient.java:118) ]
+INFO:================SQL:
