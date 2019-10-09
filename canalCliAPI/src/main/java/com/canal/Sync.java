@@ -1,3 +1,5 @@
+package com.canal;
+
 
 import com.canal.helper.MailHelper;
 import com.canal.mysql.CanalClient;
@@ -23,7 +25,7 @@ public class Sync {
         ResourceBundle rb= ResourceBundle.getBundle("config",myLocale);
         CanalClient cc=new CanalClient();
         cc.setconnect(rb.getString("source.canal.server"), Integer.parseInt(rb.getString("source.canal.port")), rb.getString("source.canal.instance"));
-        int totalEmptyCount = 120;
+        int totalEmptyCount = Integer.getInteger(rb.getString("empty.second"));
         int emptyCount = 0;
         while (emptyCount < totalEmptyCount) {
             cc.tansferEntry();
@@ -32,7 +34,7 @@ public class Sync {
             }
             if(cc.getIsEmpty()){
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                 }
             }else{
@@ -43,12 +45,13 @@ public class Sync {
         cc.disconnect();
         
         Logger log=Logger.getLogger(Sync.class);
+        //程序结束发送邮件
         try{
             InetAddress addr = InetAddress.getLocalHost();
             String ip=addr.getHostAddress();
         
-            MailHelper mh=new MailHelper("163.com","sheriff_weng","zxcv1234");
-            mh.sendEmail("sheriff.weng@mobizone.com", ip + "synchronization", ip + "synchronization has stoped.");
+            MailHelper mh=new MailHelper(rb.getString("mail.server"),rb.getString("mail.user"),rb.getString("mail.password"));
+            mh.sendEmail(rb.getString("mail.to"), ip + "synchronization", ip + "synchronization has stoped.");
         }catch(UnknownHostException e){
             log.error(e.toString());
         }

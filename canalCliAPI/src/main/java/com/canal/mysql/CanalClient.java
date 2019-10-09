@@ -32,8 +32,9 @@ public class CanalClient {
     private StringBuilder sb1=new StringBuilder();
     private StringBuilder sb2=new StringBuilder();
     private int insertnum=0;
-    private boolean isEmpty=true;
-    private boolean isExecute=true;
+    private boolean isEmpty=true;//判断是否有bin日志写入
+    private boolean isExecute=true;//sql是否执行
+    private boolean logtrace=true;//bin日志追踪
     
     public boolean getIsEmpty(){
         return this.isEmpty;
@@ -51,7 +52,7 @@ public class CanalClient {
         connector.rollback();
         myLocale = Locale.getDefault(Locale.Category.FORMAT);
         this.rb= ResourceBundle.getBundle("config",myLocale);
-        
+        this.logtrace=Boolean.getBoolean(this.rb.getString("enable.bintrace"));
     }
     
     public void setconnect(String source, int canalport,String instance,String canaluser,String canalpassword,int batchSize){
@@ -63,6 +64,7 @@ public class CanalClient {
         this.batchSize=batchSize;
         myLocale = Locale.getDefault(Locale.Category.FORMAT);
         this.rb= ResourceBundle.getBundle("config",myLocale);
+        this.logtrace=Boolean.getBoolean(this.rb.getString("enable.bintrace"));
     }
     
     public void setconnect(String source, int canalport,String instance){
@@ -73,6 +75,7 @@ public class CanalClient {
         connector.rollback();
         myLocale = Locale.getDefault(Locale.Category.FORMAT);
         this.rb= ResourceBundle.getBundle("config",myLocale);
+        this.logtrace=Boolean.getBoolean(this.rb.getString("enable.bintrace"));
     }
     
     public void setconnect(String source, int canalport,String instance,int batchSize){
@@ -84,6 +87,7 @@ public class CanalClient {
         this.batchSize=batchSize;
         myLocale = Locale.getDefault(Locale.Category.FORMAT);
         this.rb= ResourceBundle.getBundle("config",myLocale);
+        this.logtrace=Boolean.getBoolean(this.rb.getString("enable.bintrace"));
     }
     
     public void setBatchSize(int batchSize){
@@ -99,6 +103,7 @@ public class CanalClient {
         long batchId = message.getId();// 数据批号
         int size = message.getEntries().size();// 获取该批次数据的数量
         if (batchId != -1 && size != 0) {
+            
             this.isExecute=true;
             this.isEmpty=false;//在有日志数据读入的情况下，不做等待处理
             List<CanalEntry.Entry> entrys=message.getEntries();
@@ -111,11 +116,13 @@ public class CanalClient {
                     log.error(e.toString());
                 }
                 CanalEntry.EventType eventType = rowChange.getEventType();
-                log.info(String.format("================; binlog[%s:%s] , name[%s,%s] , eventType : %s",
-                                             entry.getHeader().getLogfileName(), entry.getHeader().getLogfileOffset(),
-                                             entry.getHeader().getSchemaName(), entry.getHeader().getTableName(),
-                                             eventType));
-                log.info(String.format("================SQL:"+rowChange.getSql()));
+                if(this.logtrace){
+                    log.info(String.format("================; binlog[%s:%s] , name[%s,%s] , eventType : %s",
+                                                 entry.getHeader().getLogfileName(), entry.getHeader().getLogfileOffset(),
+                                                 entry.getHeader().getSchemaName(), entry.getHeader().getTableName(),
+                                                 eventType));
+                    log.info(String.format("================SQL:"+rowChange.getSql()));
+                }
                 //设置目标数据库url
                 if(!entry.getHeader().getTableName().equals(""))//判断是否包含表名，不包含表名，则有可能只是对数据库的操作
                     this.mysqlcon.setURL(this.rb.getString("destination.mysql.server")
