@@ -117,7 +117,7 @@ public class CanalAPI {
                 }
                 CanalEntry.EventType eventType = rowChange.getEventType();
                 if(this.logtrace){
-                    log.info(String.format("================; binlog[%s:%s] , name[%s,%s] , eventType : %s",
+                    log.info(String.format("================BIN; binlog[%s:%s] , name[%s,%s] , eventType : %s",
                                                  entry.getHeader().getLogfileName(), entry.getHeader().getLogfileOffset(),
                                                  entry.getHeader().getSchemaName(), entry.getHeader().getTableName(),
                                                  eventType));

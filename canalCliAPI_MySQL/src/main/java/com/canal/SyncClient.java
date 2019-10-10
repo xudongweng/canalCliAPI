@@ -24,11 +24,9 @@ public class SyncClient {
         Locale myLocale = Locale.getDefault(Locale.Category.FORMAT);
         ResourceBundle rb= ResourceBundle.getBundle("config",myLocale);
         
-        
-        
         CanalAPI cc=new CanalAPI();
         cc.setconnect(rb.getString("source.canal.server"), Integer.parseInt(rb.getString("source.canal.port")), rb.getString("source.canal.instance"));
-        int totalEmptyCount = Integer.getInteger(rb.getString("empty.second"));
+        int totalEmptyCount = Integer.parseInt(rb.getString("empty.second"));
         int emptyCount = 0;
         while (emptyCount < totalEmptyCount) {
             cc.tansferEntry();
@@ -54,7 +52,7 @@ public class SyncClient {
             String ip=addr.getHostAddress();
         
             MailHelper mh=new MailHelper(rb.getString("mail.server"),rb.getString("mail.user"),rb.getString("mail.password"));
-            mh.sendEmail(rb.getString("mail.to"), ip + "synchronization", ip + "synchronization has stoped.");
+            mh.sendEmail(rb.getString("mail.to"), ip + " synchronization", ip + " synchronization of has stoped.");
         }catch(UnknownHostException e){
             log.error(e.toString());
         }
