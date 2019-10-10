@@ -44,7 +44,7 @@
                     <archive>
                         <manifest>
                             <!--这里要替换成jar包main方法所在类 -->
-                            <mainClass>com.mycompany.mavencanal.SimpleCanalClientExample</mainClass>
+                            <mainClass>com.canal.SyncClient</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

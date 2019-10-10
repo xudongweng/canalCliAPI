@@ -22,7 +22,7 @@ import org.apache.log4j.Logger;
  *
  * @author sheriff
  */
-public class CanalClient {
+public class CanalAPI {
     private CanalConnector connector;
     private int batchSize = 1000;
     private Logger log=null;
@@ -45,7 +45,7 @@ public class CanalClient {
     }
     
     public void setconnect(String source, int canalport,String instance,String canaluser,String canalpassword){
-        this.log=Logger.getLogger(CanalClient.class);
+        this.log=Logger.getLogger(CanalAPI.class);
         connector = CanalConnectors.newSingleConnector(new InetSocketAddress(source,canalport), instance, canaluser, canalpassword);
         connector.connect();
         //connector.subscribe(".*\\..*");
@@ -56,7 +56,7 @@ public class CanalClient {
     }
     
     public void setconnect(String source, int canalport,String instance,String canaluser,String canalpassword,int batchSize){
-        this.log=Logger.getLogger(CanalClient.class);
+        this.log=Logger.getLogger(CanalAPI.class);
         connector = CanalConnectors.newSingleConnector(new InetSocketAddress(source,canalport), instance, canaluser, canalpassword);
         connector.connect();
         //connector.subscribe(".*\\..*");
@@ -68,7 +68,7 @@ public class CanalClient {
     }
     
     public void setconnect(String source, int canalport,String instance){
-        this.log=Logger.getLogger(CanalClient.class);
+        this.log=Logger.getLogger(CanalAPI.class);
         connector = CanalConnectors.newSingleConnector(new InetSocketAddress(source,canalport), instance, "", "");
         connector.connect();
         //connector.subscribe(".*\\..*");
@@ -79,7 +79,7 @@ public class CanalClient {
     }
     
     public void setconnect(String source, int canalport,String instance,int batchSize){
-        this.log=Logger.getLogger(CanalClient.class);
+        this.log=Logger.getLogger(CanalAPI.class);
         connector = CanalConnectors.newSingleConnector(new InetSocketAddress(source,canalport), instance, "", "");
         connector.connect();
         //connector.subscribe(".*\\..*");

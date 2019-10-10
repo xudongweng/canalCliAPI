@@ -2,7 +2,7 @@ package com.canal;
 
 
 import com.canal.helper.MailHelper;
-import com.canal.mysql.CanalClient;
+import com.canal.mysql.CanalAPI;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Locale;
@@ -19,11 +19,14 @@ import org.apache.log4j.Logger;
  *
  * @author sheriff
  */
-public class Sync {
+public class SyncClient {
     public static void main(String[] args){
         Locale myLocale = Locale.getDefault(Locale.Category.FORMAT);
         ResourceBundle rb= ResourceBundle.getBundle("config",myLocale);
-        CanalClient cc=new CanalClient();
+        
+        
+        
+        CanalAPI cc=new CanalAPI();
         cc.setconnect(rb.getString("source.canal.server"), Integer.parseInt(rb.getString("source.canal.port")), rb.getString("source.canal.instance"));
         int totalEmptyCount = Integer.getInteger(rb.getString("empty.second"));
         int emptyCount = 0;
@@ -44,7 +47,7 @@ public class Sync {
         }
         cc.disconnect();
         
-        Logger log=Logger.getLogger(Sync.class);
+        Logger log=Logger.getLogger(SyncClient.class);
         //程序结束发送邮件
         try{
             InetAddress addr = InetAddress.getLocalHost();
