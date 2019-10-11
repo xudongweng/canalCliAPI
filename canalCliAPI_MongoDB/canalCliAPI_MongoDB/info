@@ -1,0 +1,2 @@
+2019-10-11 16:22:43 обнГ [Thread: main][ Method: com.canal.helper.MongoDBHelper.createTable(MongoDBHelper.java:89) ]
+ERROR:com.mongodb.MongoClientException: Sessions are not supported by the MongoDB cluster to which this client is connected [server]:localhost,[port]:27017
