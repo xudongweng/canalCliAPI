@@ -44,8 +44,6 @@ public class MongoDBHelper {
             return true;
         }catch (MongoException e) {
             log.error(e.toString()+" [urlplus:]"+this.urlplus);
-        } catch (Exception e) {  
-            log.error(e.toString()+" [urlplus:]"+this.urlplus);
         }
         return false;
     }
@@ -62,8 +60,6 @@ public class MongoDBHelper {
             mongoClient.close();
             return true;
         }catch (MongoException e) {
-            log.error(e.toString()+" [urlplus:]"+this.urlplus);
-        } catch (Exception e) {  
             log.error(e.toString()+" [urlplus:]"+this.urlplus);
         }
         return false;
