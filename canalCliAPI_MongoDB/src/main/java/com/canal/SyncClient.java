@@ -6,6 +6,7 @@
 package com.canal;
 
 import com.canal.helper.MongoDBHelper;
+import org.bson.Document;
 
 /**
  *
@@ -13,7 +14,11 @@ import com.canal.helper.MongoDBHelper;
  */
 public class SyncClient {
     public static void main(String[] args){
+        Document document = new Document("title", "MongoDB").  
+            append("description", "database").  
+            append("likes", 101).  
+            append("by", "Fly");  
         MongoDBHelper m=new MongoDBHelper();
-        System.out.println(String.valueOf(m.dropTable("test","abc")));
+        m.insertDoc("test", "t1", document);
     }
 }
