@@ -5,6 +5,7 @@
  */
 package com.canal.helper;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.MongoException;
@@ -103,7 +104,7 @@ public class MongoDBHelper {
         return false;
     }
     
-    public boolean updateDoc(String db,String table,Document document){
+    public boolean updateOneDoc(String db,String table,BasicDBObject updateOldSql,BasicDBObject updateNewSql){
         // 连接到 mongodb 服务
         MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus+"/"+db));
         try{
@@ -111,7 +112,24 @@ public class MongoDBHelper {
             // 连接到数据库，需要有runoob数据库
             MongoDatabase mongoDatabase = mongoClient.getDatabase(db);
             MongoCollection<Document> collection =mongoDatabase.getCollection(table);
-            collection.updateMany(document, document);
+            collection.updateOne(updateOldSql, updateNewSql);
+            mongoClient.close();
+            return true;
+        }catch (MongoException e) {
+            log.error(e.toString()+" [urlplus:]"+this.urlplus);
+        }
+        return false;
+    }
+    
+    public boolean updateManyDoc(String db,String table,BasicDBObject updateOldSql,BasicDBObject updateNewSql){
+        // 连接到 mongodb 服务
+        MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus+"/"+db));
+        try{
+            //System.out.println(this.server+this.port);
+            // 连接到数据库，需要有runoob数据库
+            MongoDatabase mongoDatabase = mongoClient.getDatabase(db);
+            MongoCollection<Document> collection =mongoDatabase.getCollection(table);
+            collection.updateMany(updateOldSql, updateNewSql);
             mongoClient.close();
             return true;
         }catch (MongoException e) {
