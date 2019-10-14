@@ -32,15 +32,10 @@ public class CanalAPI {
     private StringBuilder sb2=new StringBuilder();
     private int insertnum=0;
     private boolean isEmpty=true;//判断是否有bin日志写入
-    private boolean isExecute=true;//sql是否执行
     private boolean logtrace=true;//bin日志追踪
     
     public boolean getIsEmpty(){
         return this.isEmpty;
-    }
-    
-    public boolean getIsExecute(){
-        return this.isExecute;
     }
     
     public void setconnect(String source, int canalport,String instance,String canaluser,String canalpassword){
@@ -103,7 +98,6 @@ public class CanalAPI {
         int size = message.getEntries().size();// 获取该批次数据的数量
         if (batchId != -1 && size != 0) {
             
-            this.isExecute=true;
             this.isEmpty=false;//在有日志数据读入的情况下，不做等待处理
             List<CanalEntry.Entry> entrys=message.getEntries();
             
@@ -115,7 +109,7 @@ public class CanalAPI {
                     log.error(e.toString());
                 }
                 CanalEntry.EventType eventType = rowChange.getEventType();
-                if(this.logtrace){
+                if(this.logtrace==true){
                     log.info(String.format("================BIN; binlog[%s:%s] , name[%s,%s] , eventType : %s",
                                                  entry.getHeader().getLogfileName(), entry.getHeader().getLogfileOffset(),
                                                  entry.getHeader().getSchemaName(), entry.getHeader().getTableName(),
@@ -137,11 +131,7 @@ public class CanalAPI {
                 
                 if(!rowChange.getSql().equals("")){
                     //System.out.println(rowChange.getSql());
-                    this.isExecute=this.mysqlcon.executeSQL(rowChange.getSql());
-                    if(!this.isExecute){
-                        log.info(String.format("ERROR SQL EXECUTE:"+rowChange.getSql()));
-                        break;
-                    }
+
                 }
                 else{
                     String tableName = entry.getHeader().getTableName();
@@ -160,16 +150,15 @@ public class CanalAPI {
                                 break;
                         }
                     }
-                    if(!this.isExecute)
-                        break;
+
                 }
             }
         }else
             this.isEmpty=true;
         
-        if(this.isExecute)
+     //   if(this.isExecute)
             connector.ack(batchId); // 提交确认
-        else
+     //   else
             connector.rollback(batchId); // 处理失败, 回滚数据
     }
     
@@ -188,7 +177,7 @@ public class CanalAPI {
                 sb1.append(" AND ");
         }
         //System.out.println(sb1.toString());
-        this.isExecute=this.mysqlcon.executeSQL(sb1.toString());
+        
         sb1.delete(0, sb1.length());
     }
     
@@ -237,9 +226,6 @@ public class CanalAPI {
             sb1.append(sb2);
         //System.out.println(sb1.toString());
         if(insertnum==rows){
-            this.isExecute=this.mysqlcon.executeSQL(sb1.toString());
-            if(!this.isExecute)
-                log.info(String.format("ERROR SQL EXECUTE:"+sb1.toString()));
             sb1.delete(0, sb1.length());
             sb2.delete(0, sb2.length());
         }
@@ -274,9 +260,6 @@ public class CanalAPI {
         }
         sb2.append(sb1);
         //System.out.println(sb2.toString());
-        this.isExecute=this.mysqlcon.executeSQL(sb2.toString());
-        if(!this.isExecute)
-                log.info(String.format("ERROR SQL EXECUTE:"+sb2.toString()));
         sb1.delete(0, sb1.length());
         sb2.delete(0, sb2.length());
     }
