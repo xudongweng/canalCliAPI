@@ -9,7 +9,7 @@ import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.client.CanalConnectors;
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.alibaba.otter.canal.protocol.Message;
-import com.canal.helper.MySQLHelper;
+import com.canal.helper.MongoDBHelper;
 import com.google.protobuf.InvalidProtocolBufferException;
 import java.net.InetSocketAddress;
 import java.util.List;
@@ -25,8 +25,8 @@ public class CanalAPI {
     private CanalConnector connector;
     private int batchSize = 1000;
     private Logger log=null;
-    private MySQLHelper mysqlcon=new MySQLHelper();
     private Locale myLocale = null;
+    private MongoDBHelper mongocon=new MongoDBHelper();
     private ResourceBundle rb=null;
     private StringBuilder sb1=new StringBuilder();
     private StringBuilder sb2=new StringBuilder();
@@ -117,25 +117,18 @@ public class CanalAPI {
                     log.info(String.format("================SQL:"+rowChange.getSql()));
                 }
                 //设置目标数据库url
-                if(!entry.getHeader().getTableName().equals(""))//判断是否包含表名，不包含表名，则有可能只是对数据库的操作
-                    this.mysqlcon.setURL(this.rb.getString("destination.mysql.server")
-                        , this.rb.getString("destination.mysql.port")
-                        , this.rb.getString("destination.mysql.user")
-                        , this.rb.getString("destination.mysql.password")
-                        , entry.getHeader().getSchemaName());
-                else
-                    this.mysqlcon.setURL(this.rb.getString("destination.mysql.server")
-                        , this.rb.getString("destination.mysql.port")
-                        , this.rb.getString("destination.mysql.user")
-                        , this.rb.getString("destination.mysql.password"));
-                
-                if(!rowChange.getSql().equals("")){
-                    //System.out.println(rowChange.getSql());
-
+                if(!entry.getHeader().getTableName().equals("")){//判断是否包含表名，不包含表名，则有可能只是对数据库的操作
+                    this.mongocon.setUrlplus(this.rb.getString("destination.mongodb.urlplus"), entry.getHeader().getSchemaName());
+                    if(rowChange.getSql().trim().toLowerCase().indexOf("droptable")==0 ||
+                        rowChange.getSql().trim().toLowerCase().indexOf("truncate")==0){
+                        this.mongocon.dropDB(entry.getHeader().getSchemaName());
+                    }   
                 }
                 else{
+                    this.mongocon.setUrlplus(this.rb.getString("destination.mongodb.urlplus"), entry.getHeader().getSchemaName());
+                    
                     String tableName = entry.getHeader().getTableName();
-                    insertnum=0;
+                    insertnum=0;//判断在同一批insert数据是否到了最后一条
                     for (CanalEntry.RowData rowData : rowChange.getRowDatasList()) {
                         switch(eventType){
                             case DELETE:
@@ -150,16 +143,15 @@ public class CanalAPI {
                                 break;
                         }
                     }
-
                 }
             }
         }else
             this.isEmpty=true;
         
      //   if(this.isExecute)
-            connector.ack(batchId); // 提交确认
+        connector.ack(batchId); // 提交确认
      //   else
-            connector.rollback(batchId); // 处理失败, 回滚数据
+    //       connector.rollback(batchId); // 处理失败, 回滚数据
     }
     
     private void deleteColumnList(List<CanalEntry.Column> columns,String tableName){

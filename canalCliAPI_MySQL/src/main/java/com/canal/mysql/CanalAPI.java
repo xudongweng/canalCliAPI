@@ -146,7 +146,7 @@ public class CanalAPI {
                 }
                 else{
                     String tableName = entry.getHeader().getTableName();
-                    insertnum=0;
+                    insertnum=0;//判断在同一批insert数据是否到了最后一条
                     for (RowData rowData : rowChange.getRowDatasList()) {
                         switch(eventType){
                             case DELETE:
