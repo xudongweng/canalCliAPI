@@ -10,6 +10,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import java.util.ArrayList;
 import java.util.List;
@@ -120,9 +121,7 @@ public class MongoDBHelper {
             // 连接到数据库，需要有runoob数据库
             MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db);
             MongoCollection<Document> collection =mongoDatabase.getCollection(table);
-            List<Document> documents = new ArrayList<>();  
-            documents.add(document);  
-            collection.insertMany(documents);
+            collection.insertOne(document);
             mongoClient.close();
             return true;
         }catch (MongoException e) {
@@ -139,9 +138,9 @@ public class MongoDBHelper {
             // 连接到数据库，需要有runoob数据库
             MongoDatabase mongoDatabase = mongoClient.getDatabase(db);
             MongoCollection<Document> collection =mongoDatabase.getCollection(table);
-            List<Document> documents = new ArrayList<>();  
-            documents.add(document);  
-            collection.insertMany(documents);
+            //List<Document> documents = new ArrayList<>();  
+            //documents.add(document);  
+            collection.insertOne(document);
             mongoClient.close();
             return true;
         }catch (MongoException e) {
@@ -317,6 +316,25 @@ public class MongoDBHelper {
             return true;
         }catch (MongoException e) {
             log.error(e.toString()+" [urlplus:]"+this.urlplus+" [db:]"+db+" [table:]"+table+" [delSql:]"+delSql);
+        }
+        return false;
+    }
+    
+    public boolean saveDoc(String table,BasicDBObject findSql,Document document){
+        // 连接到 mongodb 服务
+        MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus));
+        try{
+            //System.out.println(this.server+this.port);
+            // 连接到数据库，需要有runoob数据库
+            MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db);
+            MongoCollection<Document> collection =mongoDatabase.getCollection(table);
+            if(collection.countDocuments(findSql)==0){
+                collection.insertOne(document);
+            }
+            mongoClient.close();
+            return true;
+        }catch (MongoException e) {
+            log.error(e.toString()+" [urlplus:]"+this.urlplus+" [db:]"+this.db+" [table:]"+table+" [findSql:]"+findSql);
         }
         return false;
     }
