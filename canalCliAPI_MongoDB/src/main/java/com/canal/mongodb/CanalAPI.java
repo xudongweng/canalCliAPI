@@ -116,17 +116,19 @@ public class CanalAPI {
                                                  eventType));
                     log.info(String.format("================SQL:"+rowChange.getSql()));
                 }
-                //设置目标数据库url
-                if(!entry.getHeader().getTableName().equals("")){//判断是否包含表名，不包含表名，则有可能只是对数据库的操作
-                    this.mongocon.setUrlplus(this.rb.getString("destination.mongodb.urlplus"), entry.getHeader().getSchemaName());
-                    if(rowChange.getSql().trim().toLowerCase().indexOf("droptable")==0 ||
-                        rowChange.getSql().trim().toLowerCase().indexOf("truncate")==0){
+                this.mongocon.setUrlplus(this.rb.getString("destination.mongodb.urlplus"), entry.getHeader().getSchemaName());//设置目标数据库url
+                if(!rowChange.getSql().equals(""))
+                {
+                    if(!entry.getHeader().getTableName().equals("")){//判断是否包含表名，不包含表名，则有可能只是对数据库的操作
+                        if(rowChange.getSql().trim().toLowerCase().indexOf("droptable")==0 ||
+                            rowChange.getSql().trim().toLowerCase().indexOf("truncate")==0){
+                            this.mongocon.dropTable(entry.getHeader().getSchemaName(), entry.getHeader().getTableName());
+                        }
+                    }else if(rowChange.getSql().trim().toLowerCase().indexOf("dropdatabase")==0){
                         this.mongocon.dropDB(entry.getHeader().getSchemaName());
-                    }   
+                    }
                 }
                 else{
-                    this.mongocon.setUrlplus(this.rb.getString("destination.mongodb.urlplus"), entry.getHeader().getSchemaName());
-                    
                     String tableName = entry.getHeader().getTableName();
                     insertnum=0;//判断在同一批insert数据是否到了最后一条
                     for (CanalEntry.RowData rowData : rowChange.getRowDatasList()) {

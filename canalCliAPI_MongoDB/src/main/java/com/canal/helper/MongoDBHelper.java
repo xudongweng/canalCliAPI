@@ -141,4 +141,38 @@ public class MongoDBHelper {
         }
         return false;
     }
+    
+    public boolean deleteOneDoc(String db,String table,BasicDBObject delSql){
+        // 连接到 mongodb 服务
+        MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus+"/"+db));
+        try{
+            //System.out.println(this.server+this.port);
+            // 连接到数据库，需要有runoob数据库
+            MongoDatabase mongoDatabase = mongoClient.getDatabase(db);
+            MongoCollection<Document> collection =mongoDatabase.getCollection(table);
+            collection.deleteOne(delSql);
+            mongoClient.close();
+            return true;
+        }catch (MongoException e) {
+            log.error(e.toString()+" [urlplus:]"+this.urlplus);
+        }
+        return false;
+    }
+    
+    public boolean deleteManyDoc(String db,String table,BasicDBObject delSql){
+        // 连接到 mongodb 服务
+        MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus+"/"+db));
+        try{
+            //System.out.println(this.server+this.port);
+            // 连接到数据库，需要有runoob数据库
+            MongoDatabase mongoDatabase = mongoClient.getDatabase(db);
+            MongoCollection<Document> collection =mongoDatabase.getCollection(table);
+            collection.deleteMany(delSql);
+            mongoClient.close();
+            return true;
+        }catch (MongoException e) {
+            log.error(e.toString()+" [urlplus:]"+this.urlplus);
+        }
+        return false;
+    }
 }
