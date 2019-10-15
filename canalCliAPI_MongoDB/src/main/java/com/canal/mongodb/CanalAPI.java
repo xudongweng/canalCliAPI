@@ -11,6 +11,7 @@ import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.alibaba.otter.canal.protocol.Message;
 import com.canal.helper.MongoDBHelper;
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.mongodb.BasicDBObject;
 import java.net.InetSocketAddress;
 import java.util.List;
 import java.util.Locale;
@@ -28,8 +29,6 @@ public class CanalAPI {
     private Locale myLocale = null;
     private MongoDBHelper mongocon=new MongoDBHelper();
     private ResourceBundle rb=null;
-    private StringBuilder sb1=new StringBuilder();
-    private StringBuilder sb2=new StringBuilder();
     private int insertnum=0;
     private boolean isEmpty=true;//判断是否有bin日志写入
     private boolean logtrace=true;//bin日志追踪
@@ -116,7 +115,7 @@ public class CanalAPI {
                                                  eventType));
                     log.info(String.format("================SQL:"+rowChange.getSql()));
                 }
-                this.mongocon.setUrlplus(this.rb.getString("destination.mongodb.urlplus"), entry.getHeader().getSchemaName());//设置目标数据库url
+                this.mongocon.setUrl(this.rb.getString("destination.mongodb.urlplus"), entry.getHeader().getSchemaName());//设置目标数据库url
                 if(!rowChange.getSql().equals(""))
                 {
                     if(!entry.getHeader().getTableName().equals("")){//判断是否包含表名，不包含表名，则有可能只是对数据库的操作
@@ -134,7 +133,7 @@ public class CanalAPI {
                     for (CanalEntry.RowData rowData : rowChange.getRowDatasList()) {
                         switch(eventType){
                             case DELETE:
-                                this.deleteColumnList(rowData.getBeforeColumnsList(),tableName);
+                                this.deleteColumnList(rowData.getBeforeColumnsList(),entry.getHeader().getTableName());
                                 break;
                             case INSERT:
                                 insertnum++;
@@ -157,22 +156,16 @@ public class CanalAPI {
     }
     
     private void deleteColumnList(List<CanalEntry.Column> columns,String tableName){
-        int i=0;
-        sb1.append("DELETE FROM ").append(tableName).append(" WHERE ");
+        BasicDBObject delSql = new BasicDBObject();
         for (CanalEntry.Column column : columns) {
-            i++;
             if(column.getMysqlType().toUpperCase().contains("CHAR")|| column.getMysqlType().toUpperCase().contains("BLOB")||
                     column.getMysqlType().toUpperCase().contains("TEXT")||column.getMysqlType().toUpperCase().contains("TIME")||
                     column.getMysqlType().toUpperCase().contains("DATE")||column.getMysqlType().toUpperCase().contains("YEAR"))
-                sb1.append(column.getName()).append("='").append(column.getValue()).append("'");
+                delSql.append(column.getName(), column.getValue());
             else
-                sb1.append(column.getName()).append("=").append(column.getValue());
-            if(i<columns.size())
-                sb1.append(" AND ");
+                delSql.append(column.getName(), column.getValue());
         }
-        //System.out.println(sb1.toString());
-        
-        sb1.delete(0, sb1.length());
+        this.mongocon.deleteManyDoc(tableName, delSql);
     }
     
     private void insertColumnList(List<CanalEntry.Column> columns,String tableName,int rows){
