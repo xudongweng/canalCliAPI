@@ -36,7 +36,8 @@ public class CanalAPI {
     private boolean isEmpty=true;//判断是否有bin日志写入
     private boolean logtrace=true;//bin日志追踪
     private List<Document> documents = new ArrayList<>();
-    private BasicDBObject query = new BasicDBObject();
+    private BasicDBObject query1 = new BasicDBObject();
+    private BasicDBObject query2 = new BasicDBObject();
     private boolean isDuplicate=true;//判断由于中断导致insert的重复数据是否已经结束
     
     public boolean getIsEmpty(){
@@ -167,16 +168,16 @@ public class CanalAPI {
     }
     
     private void deleteColumnList(List<CanalEntry.Column> columns,String tableName){
-        BasicDBObject delSql = new BasicDBObject();
         for (CanalEntry.Column column : columns) {
             if(column.getMysqlType().toUpperCase().contains("CHAR")|| column.getMysqlType().toUpperCase().contains("BLOB")||
                     column.getMysqlType().toUpperCase().contains("TEXT")||column.getMysqlType().toUpperCase().contains("TIME")||
                     column.getMysqlType().toUpperCase().contains("DATE")||column.getMysqlType().toUpperCase().contains("YEAR"))
-                delSql.append(column.getName(), column.getValue());
+                this.query1.append(column.getName(), column.getValue());
             else
-                delSql.append(column.getName(), column.getValue());
+                this.query1.append(column.getName(), column.getValue());
         }
-        this.isExecute=this.mongocon.deleteManyDoc(tableName, delSql);
+        this.isExecute=this.mongocon.deleteManyDoc(tableName, this.query1);
+        this.query1.clear();
     }
     
     private void insertColumnList(List<CanalEntry.Column> columns,String tableName,int rows){
@@ -186,15 +187,15 @@ public class CanalAPI {
                     column.getMysqlType().toUpperCase().contains("TEXT")||column.getMysqlType().toUpperCase().contains("TIME")||
                     column.getMysqlType().toUpperCase().contains("DATE")||column.getMysqlType().toUpperCase().contains("YEAR")){
                 doc.append(column.getName(), String.valueOf(column.getValue()));
-                this.query.append(column.getName(), String.valueOf(column.getValue()));
+                this.query1.append(column.getName(), String.valueOf(column.getValue()));
             }
             else{
                 doc.append(column.getName(), column.getValue());
-                this.query.append(column.getName(), column.getValue());
+                this.query1.append(column.getName(), column.getValue());
             }
         }
         if(this.isDuplicate){
-            if(this.mongocon.findCount(tableName, this.query)==0){
+            if(this.mongocon.findCount(tableName, this.query1)==0){
                 this.documents.add(doc);
                 this.isDuplicate=false;
             }
@@ -206,39 +207,29 @@ public class CanalAPI {
             this.isExecute=this.mongocon.insertDocs(tableName, documents);
             this.documents.clear();
         }
-        this.query.clear();
+        this.query1.clear();
     }
     
     private void updateColumnList(List<CanalEntry.Column> beforecos,List<CanalEntry.Column> aftercols,String tableName){
-        int i=0;
-        sb1.append(" WHERE ");
         for (CanalEntry.Column column : beforecos) {
-            i++;
             if(column.getMysqlType().toUpperCase().contains("CHAR")|| column.getMysqlType().toUpperCase().contains("BLOB")||
                     column.getMysqlType().toUpperCase().contains("TEXT")||column.getMysqlType().toUpperCase().contains("TIME")||
                     column.getMysqlType().toUpperCase().contains("DATE")||column.getMysqlType().toUpperCase().contains("YEAR"))
-                sb1.append(column.getName()).append("='").append(column.getValue()).append("'");
+                this.query1.append(column.getName(), String.valueOf(column.getValue()));
             else
-                sb1.append(column.getName()).append("=").append(column.getValue());
-            if(i<beforecos.size())
-                sb1.append(" AND ");
+                this.query1.append(column.getName(), column.getValue());
         }
-        i=0;
-        sb2.append("UPDATE ").append(tableName).append(" SET ");
+
         for (CanalEntry.Column column : aftercols) {
-            i++;
             if(column.getMysqlType().toUpperCase().contains("CHAR")|| column.getMysqlType().toUpperCase().contains("BLOB")||
                     column.getMysqlType().toUpperCase().contains("TEXT")||column.getMysqlType().toUpperCase().contains("TIME")||
                     column.getMysqlType().toUpperCase().contains("DATE")||column.getMysqlType().toUpperCase().contains("YEAR"))
-                sb2.append(column.getName()).append("='").append(column.getValue()).append("'");
+                this.query2.append(column.getName(), String.valueOf(column.getValue()));
             else
-                sb2.append(column.getName()).append("=").append(column.getValue());
-            if(i<beforecos.size())
-                sb2.append(",");
+                this.query2.append(column.getName(), column.getValue());
         }
-        sb2.append(sb1);
-        //System.out.println(sb2.toString());
-        sb1.delete(0, sb1.length());
-        sb2.delete(0, sb2.length());
+        this.mongocon.updateManyDoc(tableName, query1, query2);
+        this.query1.clear();
+        this.query2.clear();
     }
 }
