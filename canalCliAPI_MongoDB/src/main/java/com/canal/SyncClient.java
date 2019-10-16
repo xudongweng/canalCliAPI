@@ -6,15 +6,12 @@
 package com.canal;
 
 import com.canal.helper.MailHelper;
-import com.canal.helper.MongoDBHelper;
 import com.canal.mongodb.CanalAPI;
-import com.mongodb.BasicDBObject;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import org.apache.log4j.Logger;
-import org.bson.Document;
 
 /**
  *
@@ -22,21 +19,6 @@ import org.bson.Document;
  */
 public class SyncClient {
     public static void main(String[] args){
-        //MongoDBHelper m=new MongoDBHelper();
-        
-        /*
-        Document document = new Document("title", "MongoDB").  
-            append("description", "database").  
-            append("likes", 101).  
-            append("by", "Fly");  
-        
-        m.insertDoc("test", "t1", document);*/
-        /*
-        BasicDBObject updateOldSql = new BasicDBObject("title", "MongoDB2");
-        updateOldSql.append("likes", 101);
-        BasicDBObject updateNewOneSql = new BasicDBObject("$set", new BasicDBObject("likes", 345));
-        m.updateManyDoc("test", "t1", updateOldSql, updateNewOneSql);*/
-        
         Locale myLocale = Locale.getDefault(Locale.Category.FORMAT);
         ResourceBundle rb= ResourceBundle.getBundle("config",myLocale);
         

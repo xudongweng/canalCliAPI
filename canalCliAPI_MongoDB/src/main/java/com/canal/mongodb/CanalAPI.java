@@ -56,7 +56,7 @@ public class CanalAPI {
         connector.rollback();
         myLocale = Locale.getDefault(Locale.Category.FORMAT);
         this.rb= ResourceBundle.getBundle("config",myLocale);
-        this.logtrace=Boolean.getBoolean(this.rb.getString("enable.bintrace"));
+        this.logtrace=Boolean.valueOf(this.rb.getString("enable.bintrace"));
     }
     
     public void setconnect(String source, int canalport,String instance,String canaluser,String canalpassword,int batchSize){
@@ -68,7 +68,7 @@ public class CanalAPI {
         this.batchSize=batchSize;
         myLocale = Locale.getDefault(Locale.Category.FORMAT);
         this.rb= ResourceBundle.getBundle("config",myLocale);
-        this.logtrace=Boolean.getBoolean(this.rb.getString("enable.bintrace"));
+        this.logtrace=Boolean.valueOf(this.rb.getString("enable.bintrace"));
     }
     
     public void setconnect(String source, int canalport,String instance){
@@ -79,7 +79,7 @@ public class CanalAPI {
         connector.rollback();
         myLocale = Locale.getDefault(Locale.Category.FORMAT);
         this.rb= ResourceBundle.getBundle("config",myLocale);
-        this.logtrace=Boolean.getBoolean(this.rb.getString("enable.bintrace"));
+        this.logtrace=Boolean.valueOf(this.rb.getString("enable.bintrace"));
     }
     
     public void setconnect(String source, int canalport,String instance,int batchSize){
@@ -91,7 +91,7 @@ public class CanalAPI {
         this.batchSize=batchSize;
         myLocale = Locale.getDefault(Locale.Category.FORMAT);
         this.rb= ResourceBundle.getBundle("config",myLocale);
-        this.logtrace=Boolean.getBoolean(this.rb.getString("enable.bintrace"));
+        this.logtrace=Boolean.valueOf(this.rb.getString("enable.bintrace"));
     }
     
     public void setBatchSize(int batchSize){
@@ -107,7 +107,6 @@ public class CanalAPI {
         long batchId = message.getId();// 数据批号
         int size = message.getEntries().size();// 获取该批次数据的数量
         if (batchId != -1 && size != 0) {
-            
             this.isExecute=true;
             this.isEmpty=false;//在有日志数据读入的情况下，不做等待处理
             List<CanalEntry.Entry> entrys=message.getEntries();
@@ -131,21 +130,21 @@ public class CanalAPI {
                 if(!rowChange.getSql().equals(""))
                 {
                     if(!entry.getHeader().getTableName().equals("")){//判断是否包含表名，不包含表名，则有可能只是对数据库的操作
-                        if(rowChange.getSql().trim().toLowerCase().indexOf("droptable")==0 ||
-                            rowChange.getSql().trim().toLowerCase().indexOf("truncate")==0){
-                            this.mongocon.dropTable(entry.getHeader().getSchemaName(), entry.getHeader().getTableName());
+                        if(rowChange.getSql().replaceAll(" ", "").toLowerCase().indexOf("droptable")==0 ||
+                            rowChange.getSql().replaceAll(" ", "").toLowerCase().indexOf("truncate")==0){
+                            this.isExecute=this.mongocon.dropTable(entry.getHeader().getSchemaName().replaceAll("`", ""), entry.getHeader().getTableName().replaceAll("`", ""));
                         }
-                    }else if(rowChange.getSql().trim().toLowerCase().indexOf("dropdatabase")==0){
-                        this.mongocon.dropDB(entry.getHeader().getSchemaName());
+                    }else if(rowChange.getSql().replaceAll(" ", "").toLowerCase().indexOf("dropdatabase")==0){
+                        this.isExecute=this.mongocon.dropDB(entry.getHeader().getSchemaName().replaceAll("`", ""));
                     }
                 }
                 else{
-                    String tableName = entry.getHeader().getTableName();
+                    String tableName = entry.getHeader().getTableName().replaceAll("`", "");
                     this.insertnum=0;//判断在同一批insert数据是否到了最后一条
                     for (CanalEntry.RowData rowData : rowChange.getRowDatasList()) {
                         switch(eventType){
                             case DELETE:
-                                this.deleteColumnList(rowData.getBeforeColumnsList(),entry.getHeader().getTableName());
+                                this.deleteColumnList(rowData.getBeforeColumnsList(),tableName);
                                 break;
                             case INSERT:
                                 this.insertnum++;
@@ -186,12 +185,12 @@ public class CanalAPI {
             if(column.getMysqlType().toUpperCase().contains("CHAR")|| column.getMysqlType().toUpperCase().contains("BLOB")||
                     column.getMysqlType().toUpperCase().contains("TEXT")||column.getMysqlType().toUpperCase().contains("TIME")||
                     column.getMysqlType().toUpperCase().contains("DATE")||column.getMysqlType().toUpperCase().contains("YEAR")){
-                doc.append(column.getName(), String.valueOf(column.getValue()));
-                this.query1.append(column.getName(), String.valueOf(column.getValue()));
-            }
-            else{
                 doc.append(column.getName(), column.getValue());
                 this.query1.append(column.getName(), column.getValue());
+            }
+            else{
+                doc.append(column.getName(), Long.valueOf(column.getValue()));
+                this.query1.append(column.getName(), Long.valueOf(column.getValue()));
             }
         }
         if(this.isDuplicate){
@@ -215,20 +214,20 @@ public class CanalAPI {
             if(column.getMysqlType().toUpperCase().contains("CHAR")|| column.getMysqlType().toUpperCase().contains("BLOB")||
                     column.getMysqlType().toUpperCase().contains("TEXT")||column.getMysqlType().toUpperCase().contains("TIME")||
                     column.getMysqlType().toUpperCase().contains("DATE")||column.getMysqlType().toUpperCase().contains("YEAR"))
-                this.query1.append(column.getName(), String.valueOf(column.getValue()));
-            else
                 this.query1.append(column.getName(), column.getValue());
+            else
+                this.query1.append(column.getName(), Long.valueOf(column.getValue()));
         }
 
         for (CanalEntry.Column column : aftercols) {
             if(column.getMysqlType().toUpperCase().contains("CHAR")|| column.getMysqlType().toUpperCase().contains("BLOB")||
                     column.getMysqlType().toUpperCase().contains("TEXT")||column.getMysqlType().toUpperCase().contains("TIME")||
                     column.getMysqlType().toUpperCase().contains("DATE")||column.getMysqlType().toUpperCase().contains("YEAR"))
-                this.query2.append(column.getName(), String.valueOf(column.getValue()));
-            else
                 this.query2.append(column.getName(), column.getValue());
+            else
+                this.query2.append(column.getName(), Long.valueOf(column.getValue()));
         }
-        this.mongocon.updateManyDoc(tableName, query1, query2);
+        this.mongocon.updateOneDoc(tableName, query1, query2);
         this.query1.clear();
         this.query2.clear();
     }

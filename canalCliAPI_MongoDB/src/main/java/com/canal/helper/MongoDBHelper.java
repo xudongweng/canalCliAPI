@@ -190,7 +190,7 @@ public class MongoDBHelper {
             // 连接到数据库，需要有runoob数据库
             MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db);
             MongoCollection<Document> collection =mongoDatabase.getCollection(table);
-            collection.updateOne(updateOldSql, updateNewSql);
+            collection.updateOne(updateOldSql, new BasicDBObject("$set",updateNewSql));
             mongoClient.close();
             return true;
         }catch (MongoException e) {
@@ -207,7 +207,7 @@ public class MongoDBHelper {
             // 连接到数据库，需要有runoob数据库
             MongoDatabase mongoDatabase = mongoClient.getDatabase(db);
             MongoCollection<Document> collection =mongoDatabase.getCollection(table);
-            collection.updateOne(updateOldSql, updateNewSql);
+            collection.updateOne(updateOldSql, new BasicDBObject("$set",updateNewSql));
             mongoClient.close();
             return true;
         }catch (MongoException e) {
@@ -224,7 +224,7 @@ public class MongoDBHelper {
             // 连接到数据库，需要有runoob数据库
             MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db);
             MongoCollection<Document> collection =mongoDatabase.getCollection(table);
-            collection.updateMany(updateOldSql, updateNewSql);
+            collection.updateMany(updateOldSql, new BasicDBObject("$set",updateNewSql));
             mongoClient.close();
             return true;
         }catch (MongoException e) {
@@ -241,7 +241,7 @@ public class MongoDBHelper {
             // 连接到数据库，需要有runoob数据库
             MongoDatabase mongoDatabase = mongoClient.getDatabase(db);
             MongoCollection<Document> collection =mongoDatabase.getCollection(table);
-            collection.updateMany(updateOldSql, updateNewSql);
+            collection.updateMany(updateOldSql, new BasicDBObject("$set",updateNewSql));
             mongoClient.close();
             return true;
         }catch (MongoException e) {
