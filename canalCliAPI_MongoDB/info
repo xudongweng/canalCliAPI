@@ -1,0 +1,24 @@
+2019-10-17 16:51:39 下午 [Thread: main][ Method: com.canal.mongodb.CanalAPI.insertColumnList(CanalAPI.java:220) ]
+ERROR:java.text.ParseException: Unparseable date: "2019-10-17"
+2019-10-17 16:51:39 下午 [Thread: main][ Method: com.canal.mongodb.CanalAPI.insertColumnList(CanalAPI.java:220) ]
+ERROR:java.text.ParseException: Unparseable date: "16:47:43"
+2019-10-17 16:51:39 下午 [Thread: main][ Method: com.canal.mongodb.CanalAPI.insertColumnList(CanalAPI.java:220) ]
+ERROR:java.text.ParseException: Unparseable date: "16:48:18"
+2019-10-17 16:55:28 下午 [Thread: main][ Method: com.canal.mongodb.CanalAPI.insertColumnList(CanalAPI.java:220) ]
+ERROR:java.text.ParseException: Unparseable date: "2019-10-17"
+2019-10-17 16:55:28 下午 [Thread: main][ Method: com.canal.mongodb.CanalAPI.insertColumnList(CanalAPI.java:220) ]
+ERROR:java.text.ParseException: Unparseable date: "16:47:43"
+2019-10-17 16:55:54 下午 [Thread: main][ Method: com.canal.mongodb.CanalAPI.insertColumnList(CanalAPI.java:220) ]
+ERROR:java.text.ParseException: Unparseable date: "16:48:18"
+2019-10-17 17:15:04 下午 [Thread: main][ Method: com.canal.mongodb.CanalAPI.insertColumnList(CanalAPI.java:221) ]
+ERROR:java.text.ParseException: Unparseable date: "2019-10-17"
+2019-10-17 17:15:04 下午 [Thread: main][ Method: com.canal.mongodb.CanalAPI.insertColumnList(CanalAPI.java:221) ]
+ERROR:java.text.ParseException: Unparseable date: "16:47:43"
+2019-10-17 17:15:17 下午 [Thread: main][ Method: com.canal.mongodb.CanalAPI.insertColumnList(CanalAPI.java:221) ]
+ERROR:java.text.ParseException: Unparseable date: "16:48:18"
+2019-10-17 17:17:50 下午 [Thread: main][ Method: com.canal.mongodb.CanalAPI.insertColumnList(CanalAPI.java:221) ]
+ERROR:java.text.ParseException: Unparseable date: "2019-10-17"
+2019-10-17 17:17:50 下午 [Thread: main][ Method: com.canal.mongodb.CanalAPI.insertColumnList(CanalAPI.java:221) ]
+ERROR:java.text.ParseException: Unparseable date: "16:47:43"
+2019-10-17 17:17:50 下午 [Thread: main][ Method: com.canal.mongodb.CanalAPI.insertColumnList(CanalAPI.java:221) ]
+ERROR:java.text.ParseException: Unparseable date: "16:48:18"

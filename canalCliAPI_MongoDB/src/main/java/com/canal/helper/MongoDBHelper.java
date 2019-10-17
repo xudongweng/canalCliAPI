@@ -149,37 +149,43 @@ public class MongoDBHelper {
     
         
     public boolean insertDocs(String table,List<Document> documents){
-        // 连接到 mongodb 服务
-        MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus));
-        try{
-            //System.out.println(this.server+this.port);
-            // 连接到数据库，需要有runoob数据库
-            MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db);
-            MongoCollection<Document> collection =mongoDatabase.getCollection(table);
-            collection.insertMany(documents);
-            mongoClient.close();
-            return true;
-        }catch (MongoException e) {
-            log.error(e.toString()+" [urlplus:]"+this.urlplus+" [db:]"+this.db+" [table:]"+table+" [list:]"+documents.toString());
+        if(documents.size()>0){
+            // 连接到 mongodb 服务
+            MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus));
+            try{
+                //System.out.println(this.server+this.port);
+                // 连接到数据库，需要有runoob数据库
+                MongoDatabase mongoDatabase = mongoClient.getDatabase(this.db);
+                MongoCollection<Document> collection =mongoDatabase.getCollection(table);
+                collection.insertMany(documents);
+                mongoClient.close();
+                return true;
+            }catch (MongoException e) {
+                log.error(e.toString()+" [urlplus:]"+this.urlplus+" [db:]"+this.db+" [table:]"+table+" [list:]"+documents.toString());
+            }
+            return false;
         }
-        return false;
+        return true;
     }
     
     public boolean insertDocs(String db,String table,List<Document> documents){
-        // 连接到 mongodb 服务
-        MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus+"/"+db));
-        try{
-            //System.out.println(this.server+this.port);
-            // 连接到数据库，需要有runoob数据库
-            MongoDatabase mongoDatabase = mongoClient.getDatabase(db);
-            MongoCollection<Document> collection =mongoDatabase.getCollection(table);
-            collection.insertMany(documents);
-            mongoClient.close();
-            return true;
-        }catch (MongoException e) {
-            log.error(e.toString()+" [urlplus:]"+this.urlplus+" [db:]"+db+" [table:]"+table+" [list:]"+documents.toString());
+        if(documents.size()>0){
+            // 连接到 mongodb 服务
+            MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus+"/"+db));
+            try{
+                //System.out.println(this.server+this.port);
+                // 连接到数据库，需要有runoob数据库
+                MongoDatabase mongoDatabase = mongoClient.getDatabase(db);
+                MongoCollection<Document> collection =mongoDatabase.getCollection(table);
+                collection.insertMany(documents);
+                mongoClient.close();
+                return true;
+            }catch (MongoException e) {
+                log.error(e.toString()+" [urlplus:]"+this.urlplus+" [db:]"+db+" [table:]"+table+" [list:]"+documents.toString());
+            }
+            return false;
         }
-        return false;
+        return true;
     }
     
     public boolean updateOneDoc(String table,BasicDBObject updateOldSql,BasicDBObject updateNewSql){
