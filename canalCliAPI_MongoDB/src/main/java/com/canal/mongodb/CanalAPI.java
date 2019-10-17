@@ -13,6 +13,7 @@ import com.canal.helper.MongoDBHelper;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.mongodb.BasicDBObject;
 import java.net.InetSocketAddress;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -39,6 +40,7 @@ public class CanalAPI {
     private BasicDBObject query1 = new BasicDBObject();
     private BasicDBObject query2 = new BasicDBObject();
     private boolean isDuplicate=true;//判断由于中断导致insert的重复数据是否已经结束
+    private StringBuilder sb=new StringBuilder();
     
     public boolean getIsEmpty(){
         return this.isEmpty;
@@ -168,12 +170,21 @@ public class CanalAPI {
     
     private void deleteColumnList(List<CanalEntry.Column> columns,String tableName){
         for (CanalEntry.Column column : columns) {
-            if(column.getMysqlType().toUpperCase().contains("CHAR")|| column.getMysqlType().toUpperCase().contains("BLOB")||
-                    column.getMysqlType().toUpperCase().contains("TEXT")||column.getMysqlType().toUpperCase().contains("TIME")||
-                    column.getMysqlType().toUpperCase().contains("DATE")||column.getMysqlType().toUpperCase().contains("YEAR"))
+            sb.append(column.getMysqlType().toUpperCase());
+            if(sb.indexOf("CHAR")>=0)
                 this.query1.append(column.getName(), column.getValue());
-            else
+            else if(sb.indexOf("INT")>=0|| sb.indexOf("YEAR")>=0){
+                if(sb.indexOf("BIGINT")>=0)
+                    this.query1.append(column.getName(), Long.valueOf(column.getValue()));
+                else
+                    this.query1.append(column.getName(), Integer.valueOf(column.getValue()));
+            }else if(sb.indexOf("DATE")>=0||sb.indexOf("TIME")>=0){
+                this.query1.append(column.getName(), Date.valueOf(column.getValue()));
+            }else if(sb.indexOf("FLOAT")>=0||sb.indexOf("DOUBLE")>0||sb.indexOf("DECIMAL")>=0){
+                this.query1.append(column.getName(), Double.valueOf(column.getValue()));
+            }else
                 this.query1.append(column.getName(), column.getValue());
+            sb.delete(0, sb.length());
         }
         this.isExecute=this.mongocon.deleteManyDoc(tableName, this.query1);
         this.query1.clear();
@@ -182,16 +193,29 @@ public class CanalAPI {
     private void insertColumnList(List<CanalEntry.Column> columns,String tableName,int rows){
         Document doc=new Document();
         for (CanalEntry.Column column : columns) {
-            if(column.getMysqlType().toUpperCase().contains("CHAR")|| column.getMysqlType().toUpperCase().contains("BLOB")||
-                    column.getMysqlType().toUpperCase().contains("TEXT")||column.getMysqlType().toUpperCase().contains("TIME")||
-                    column.getMysqlType().toUpperCase().contains("DATE")||column.getMysqlType().toUpperCase().contains("YEAR")){
+            sb.append(column.getMysqlType().toUpperCase());
+            if(sb.indexOf("CHAR")>=0){
+                doc.append(column.getName(), column.getValue());
+                this.query1.append(column.getName(), column.getValue());
+            }else if(sb.indexOf("INT")>=0|| sb.indexOf("YEAR")>=0){
+                if(sb.indexOf("BIGINT")>=0){
+                    doc.append(column.getName(), Long.valueOf(column.getValue()));
+                    this.query1.append(column.getName(), Long.valueOf(column.getValue()));
+                }else{
+                    doc.append(column.getName(), Integer.valueOf(column.getValue()));
+                    this.query1.append(column.getName(), Integer.valueOf(column.getValue()));
+                }
+            }else if(sb.indexOf("DATE")>=0||sb.indexOf("TIME")>=0){
+                doc.append(column.getName(), Date.valueOf(column.getValue()));
+                this.query1.append(column.getName(), Date.valueOf(column.getValue()));
+            }else if(sb.indexOf("FLOAT")>=0||sb.indexOf("DOUBLE")>0||sb.indexOf("DECIMAL")>=0){
+                doc.append(column.getName(), Double.valueOf(column.getValue()));
+                this.query1.append(column.getName(), Double.valueOf(column.getValue()));
+            }else{
                 doc.append(column.getName(), column.getValue());
                 this.query1.append(column.getName(), column.getValue());
             }
-            else{
-                doc.append(column.getName(), Long.valueOf(column.getValue()));
-                this.query1.append(column.getName(), Long.valueOf(column.getValue()));
-            }
+            sb.delete(0, sb.length());
         }
         if(this.isDuplicate){
             if(this.mongocon.findCount(tableName, this.query1)==0){
@@ -211,21 +235,39 @@ public class CanalAPI {
     
     private void updateColumnList(List<CanalEntry.Column> beforecos,List<CanalEntry.Column> aftercols,String tableName){
         for (CanalEntry.Column column : beforecos) {
-            if(column.getMysqlType().toUpperCase().contains("CHAR")|| column.getMysqlType().toUpperCase().contains("BLOB")||
-                    column.getMysqlType().toUpperCase().contains("TEXT")||column.getMysqlType().toUpperCase().contains("TIME")||
-                    column.getMysqlType().toUpperCase().contains("DATE")||column.getMysqlType().toUpperCase().contains("YEAR"))
+            sb.append(column.getMysqlType().toUpperCase());
+            if(sb.indexOf("CHAR")>=0)
                 this.query1.append(column.getName(), column.getValue());
+            else if(sb.indexOf("INT")>=0|| sb.indexOf("YEAR")>=0){
+                if(sb.indexOf("BIGINT")>=0)
+                    this.query1.append(column.getName(), Long.valueOf(column.getValue()));
+                else
+                    this.query1.append(column.getName(), Integer.valueOf(column.getValue()));
+            }else if(sb.indexOf("DATE")>=0||sb.indexOf("TIME")>=0){
+                this.query1.append(column.getName(), Date.valueOf(column.getValue()));
+            }else if(sb.indexOf("FLOAT")>=0||sb.indexOf("DOUBLE")>=0||sb.indexOf("DECIMAL")>=0)
+                this.query1.append(column.getName(), Double.valueOf(column.getValue()));
             else
-                this.query1.append(column.getName(), Long.valueOf(column.getValue()));
+                this.query1.append(column.getName(), column.getValue());
+            sb.delete(0, sb.length());
         }
 
         for (CanalEntry.Column column : aftercols) {
-            if(column.getMysqlType().toUpperCase().contains("CHAR")|| column.getMysqlType().toUpperCase().contains("BLOB")||
-                    column.getMysqlType().toUpperCase().contains("TEXT")||column.getMysqlType().toUpperCase().contains("TIME")||
-                    column.getMysqlType().toUpperCase().contains("DATE")||column.getMysqlType().toUpperCase().contains("YEAR"))
+            sb.append(column.getMysqlType().toUpperCase());
+            if(sb.indexOf("CHAR")>=0)
                 this.query2.append(column.getName(), column.getValue());
+            else if(sb.indexOf("INT")>=0|| sb.indexOf("YEAR")>=0){
+                if(sb.indexOf("BIGINT")>=0)
+                    this.query2.append(column.getName(), Long.valueOf(column.getValue()));
+                else
+                    this.query2.append(column.getName(), Integer.valueOf(column.getValue()));
+            }else if(sb.indexOf("DATE")>=0||sb.indexOf("TIME")>=0){
+                this.query2.append(column.getName(), Date.valueOf(column.getValue()));
+            }else if(sb.indexOf("FLOAT")>=0||sb.indexOf("DOUBLE")>=0||sb.indexOf("DECIMAL")>=0)
+                this.query2.append(column.getName(), Double.valueOf(column.getValue()));
             else
-                this.query2.append(column.getName(), Long.valueOf(column.getValue()));
+                this.query2.append(column.getName(), column.getValue());
+            sb.delete(0, sb.length());
         }
         this.mongocon.updateOneDoc(tableName, query1, query2);
         this.query1.clear();

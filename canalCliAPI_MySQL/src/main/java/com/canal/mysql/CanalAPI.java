@@ -29,6 +29,7 @@ public class CanalAPI {
     private MySQLHelper mysqlcon=new MySQLHelper();
     private Locale myLocale = null;
     private ResourceBundle rb=null;
+    private StringBuilder sb=new StringBuilder();
     private StringBuilder sb1=new StringBuilder();
     private StringBuilder sb2=new StringBuilder();
     private int insertnum=0;
@@ -178,15 +179,15 @@ public class CanalAPI {
         int i=0;
         sb1.append("DELETE FROM ").append(tableName).append(" WHERE ");
         for (CanalEntry.Column column : columns) {
+            sb.append(column.getMysqlType().toUpperCase());
             i++;
-            if(column.getMysqlType().toUpperCase().contains("CHAR")|| column.getMysqlType().toUpperCase().contains("BLOB")||
-                    column.getMysqlType().toUpperCase().contains("TEXT")||column.getMysqlType().toUpperCase().contains("TIME")||
-                    column.getMysqlType().toUpperCase().contains("DATE")||column.getMysqlType().toUpperCase().contains("YEAR"))
+            if(sb.indexOf("CHAR")>=0||sb.indexOf("DATE")>=0||sb.indexOf("TIME")>=0||sb.indexOf("TEXT")>=0||sb.indexOf("YEAR")>=0||sb.indexOf("BLOB")>=0)
                 sb1.append(column.getName()).append("='").append(column.getValue()).append("'");
             else
                 sb1.append(column.getName()).append("=").append(column.getValue());
             if(i<columns.size())
                 sb1.append(" AND ");
+            sb.delete(0, sb.length());
         }
         //System.out.println(sb1.toString());
         this.isExecute=this.mysqlcon.executeSQL(sb1.toString());
@@ -202,12 +203,11 @@ public class CanalAPI {
             sb1.append(",(");
         
         for (CanalEntry.Column column : columns) {
+            sb.append(column.getMysqlType().toUpperCase());
             i++;
             if(insertnum==1){
                 sb1.append(column.getName());
-                if(column.getMysqlType().toUpperCase().contains("CHAR")|| column.getMysqlType().toUpperCase().contains("BLOB")||
-                        column.getMysqlType().toUpperCase().contains("TEXT")||column.getMysqlType().toUpperCase().contains("TIME")||
-                        column.getMysqlType().toUpperCase().contains("DATE")||column.getMysqlType().toUpperCase().contains("YEAR"))
+                if(sb.indexOf("CHAR")>=0||sb.indexOf("DATE")>=0||sb.indexOf("TIME")>=0||sb.indexOf("TEXT")>=0||sb.indexOf("YEAR")>=0||sb.indexOf("BLOB")>=0)
                     sb2.append("'").append(column.getValue()).append("'");
                 else
                     sb2.append(column.getValue());
@@ -220,9 +220,7 @@ public class CanalAPI {
                     sb2.append(")");
                 }
             }else{
-                if(column.getMysqlType().toUpperCase().contains("CHAR")|| column.getMysqlType().toUpperCase().contains("BLOB")||
-                        column.getMysqlType().toUpperCase().contains("TEXT")||column.getMysqlType().toUpperCase().contains("TIME")||
-                        column.getMysqlType().toUpperCase().contains("DATE")||column.getMysqlType().toUpperCase().contains("YEAR"))
+                if(sb.indexOf("CHAR")>=0||sb.indexOf("DATE")>=0||sb.indexOf("TIME")>=0||sb.indexOf("TEXT")>=0||sb.indexOf("YEAR")>=0||sb.indexOf("BLOB")>=0)
                     sb1.append("'").append(column.getValue()).append("'");
                 else
                     sb1.append(column.getValue());
@@ -233,7 +231,9 @@ public class CanalAPI {
                     sb1.append(")");
                 }
             }
+            sb.delete(0, sb.length());
         }
+        
         if(insertnum==1)
             sb1.append(sb2);
         //System.out.println(sb1.toString());
@@ -250,28 +250,28 @@ public class CanalAPI {
         int i=0;
         sb1.append(" WHERE ");
         for (CanalEntry.Column column : beforecos) {
+            sb.append(column.getMysqlType().toUpperCase());
             i++;
-            if(column.getMysqlType().toUpperCase().contains("CHAR")|| column.getMysqlType().toUpperCase().contains("BLOB")||
-                    column.getMysqlType().toUpperCase().contains("TEXT")||column.getMysqlType().toUpperCase().contains("TIME")||
-                    column.getMysqlType().toUpperCase().contains("DATE")||column.getMysqlType().toUpperCase().contains("YEAR"))
+            if(sb.indexOf("CHAR")>=0||sb.indexOf("DATE")>=0||sb.indexOf("TIME")>=0||sb.indexOf("TEXT")>=0||sb.indexOf("YEAR")>=0||sb.indexOf("BLOB")>=0)
                 sb1.append(column.getName()).append("='").append(column.getValue()).append("'");
             else
                 sb1.append(column.getName()).append("=").append(column.getValue());
             if(i<beforecos.size())
                 sb1.append(" AND ");
+            sb.delete(0, sb.length());
         }
         i=0;
         sb2.append("UPDATE ").append(tableName).append(" SET ");
         for (CanalEntry.Column column : aftercols) {
+            sb.append(column.getMysqlType().toUpperCase());
             i++;
-            if(column.getMysqlType().toUpperCase().contains("CHAR")|| column.getMysqlType().toUpperCase().contains("BLOB")||
-                    column.getMysqlType().toUpperCase().contains("TEXT")||column.getMysqlType().toUpperCase().contains("TIME")||
-                    column.getMysqlType().toUpperCase().contains("DATE")||column.getMysqlType().toUpperCase().contains("YEAR"))
+            if(sb.indexOf("CHAR")>=0||sb.indexOf("DATE")>=0||sb.indexOf("TIME")>=0||sb.indexOf("TEXT")>=0||sb.indexOf("YEAR")>=0||sb.indexOf("BLOB")>=0)
                 sb2.append(column.getName()).append("='").append(column.getValue()).append("'");
             else
                 sb2.append(column.getName()).append("=").append(column.getValue());
             if(i<beforecos.size())
                 sb2.append(",");
+            sb.delete(0, sb.length());
         }
         sb2.append(sb1);
         //System.out.println(sb2.toString());
