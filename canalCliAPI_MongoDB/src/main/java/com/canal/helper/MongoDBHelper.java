@@ -63,7 +63,7 @@ public class MongoDBHelper {
     
     public boolean dropDB(String db){
         // 连接到 mongodb 服务
-        MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus+"/"+db));
+        MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus));
         try{
             //System.out.println(this.server+this.port);
             // 连接到数据库，需要有runoob数据库
@@ -96,7 +96,7 @@ public class MongoDBHelper {
     
     public boolean dropTable(String db,String table){
         // 连接到 mongodb 服务
-        MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus+"/"+db));
+        MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus));
         try{
             //System.out.println(this.server+this.port);
             // 连接到数据库，需要有runoob数据库
@@ -130,7 +130,7 @@ public class MongoDBHelper {
 
     public boolean insertDoc(String db,String table,Document document){
         // 连接到 mongodb 服务
-        MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus+"/"+db));
+        MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus));
         try{
             //System.out.println(this.server+this.port);
             // 连接到数据库，需要有runoob数据库
@@ -171,7 +171,7 @@ public class MongoDBHelper {
     public boolean insertDocs(String db,String table,List<Document> documents){
         if(documents.size()>0){
             // 连接到 mongodb 服务
-            MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus+"/"+db));
+            MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus));
             try{
                 //System.out.println(this.server+this.port);
                 // 连接到数据库，需要有runoob数据库
@@ -207,7 +207,7 @@ public class MongoDBHelper {
     
     public boolean updateOneDoc(String db,String table,BasicDBObject updateOldSql,BasicDBObject updateNewSql){
         // 连接到 mongodb 服务
-        MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus+"/"+db));
+        MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus));
         try{
             //System.out.println(this.server+this.port);
             // 连接到数据库，需要有runoob数据库
@@ -241,7 +241,7 @@ public class MongoDBHelper {
     
     public boolean updateManyDoc(String db,String table,BasicDBObject updateOldSql,BasicDBObject updateNewSql){
         // 连接到 mongodb 服务
-        MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus+"/"+db));
+        MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus));
         try{
             //System.out.println(this.server+this.port);
             // 连接到数据库，需要有runoob数据库
@@ -275,7 +275,7 @@ public class MongoDBHelper {
     
     public boolean deleteOneDoc(String db,String table,BasicDBObject delSql){
         // 连接到 mongodb 服务
-        MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus+"/"+db));
+        MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus));
         try{
             //System.out.println(this.server+this.port);
             // 连接到数据库，需要有runoob数据库
@@ -309,7 +309,7 @@ public class MongoDBHelper {
     
     public boolean deleteManyDoc(String db,String table,BasicDBObject delSql){
         // 连接到 mongodb 服务
-        MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus+"/"+db));
+        MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus));
         try{
             //System.out.println(this.server+this.port);
             // 连接到数据库，需要有runoob数据库
@@ -362,7 +362,7 @@ public class MongoDBHelper {
     
     public long findCount(String db,String table,BasicDBObject findSql){
         // 连接到 mongodb 服务
-        MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus+"/"+db));
+        MongoClient mongoClient = new MongoClient(new MongoClientURI(this.url+this.urlplus));
         try{
             //System.out.println(this.server+this.port);
             // 连接到数据库，需要有runoob数据库

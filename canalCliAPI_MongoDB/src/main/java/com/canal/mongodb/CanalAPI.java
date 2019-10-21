@@ -13,7 +13,6 @@ import com.canal.helper.MongoDBHelper;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.mongodb.BasicDBObject;
 import java.net.InetSocketAddress;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,7 +43,6 @@ public class CanalAPI {
     private boolean isDuplicate=true;//判断由于中断导致insert的重复数据是否已经结束
     private StringBuilder sb=new StringBuilder();
     private SimpleDateFormat formatDateTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    private SimpleDateFormat formatDate=new SimpleDateFormat("yyyy-MM-dd");
     
     public boolean getIsEmpty(){
         return this.isEmpty;
@@ -160,6 +158,10 @@ public class CanalAPI {
                                 this.updateColumnList(rowData.getBeforeColumnsList(),rowData.getAfterColumnsList(),tableName);
                                 break;
                         }
+                        if(!this.isExecute){
+                            connector.rollback(batchId); // 处理失败, 回滚数据
+                            return;
+                        }
                     }
                 }
             }
@@ -234,9 +236,15 @@ public class CanalAPI {
             }
         }
         if(this.isDuplicate){
-            if(this.mongocon.findCount(tableName, this.query1)==0){
+            long count=this.mongocon.findCount(tableName, this.query1);
+            if(count==0){
                 this.documents.add(doc);
                 this.isDuplicate=false;
+            }else if(count==-1){ //返回执行失败
+                this.isExecute=false;
+                this.documents.clear();
+                this.query1.clear();
+                return;
             }
         }
         else

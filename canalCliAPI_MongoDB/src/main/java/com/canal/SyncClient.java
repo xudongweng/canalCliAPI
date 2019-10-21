@@ -27,6 +27,8 @@ public class SyncClient {
         int totalEmptyCount = Integer.parseInt(rb.getString("empty.second"));
         int emptyCount = 0;
         while (emptyCount < totalEmptyCount) {
+            if(!cc.getIsExecute())
+                break;
             cc.tansferEntry();
             if(cc.getIsEmpty()){
                 try {
@@ -47,7 +49,7 @@ public class SyncClient {
             String ip=addr.getHostAddress();
         
             MailHelper mh=new MailHelper(rb.getString("mail.server"),rb.getString("mail.user"),rb.getString("mail.password"));
-            mh.sendEmail(rb.getString("mail.to"), ip + " synchronization", ip + " synchronization of has stoped.");
+            mh.sendEmail(rb.getString("mail.to"), ip + " synchronization", ip + " synchronization has stoped.");
         }catch(UnknownHostException e){
             log.error(e.toString());
         }
