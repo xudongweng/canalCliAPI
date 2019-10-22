@@ -142,7 +142,8 @@ public class CanalAPI {
                     this.isExecute=this.mysqlcon.executeSQL(rowChange.getSql());
                     if(!this.isExecute){
                         log.info(String.format("ERROR SQL EXECUTE:"+rowChange.getSql()));
-                        break;
+                        connector.rollback(batchId); // 处理失败, 回滚数据
+                        return;
                     }
                 }
                 else{
@@ -161,9 +162,11 @@ public class CanalAPI {
                                 this.updateColumnList(rowData.getBeforeColumnsList(),rowData.getAfterColumnsList(),tableName);
                                 break;
                         }
+                        if(!this.isExecute){
+                            connector.rollback(batchId); // 处理失败, 回滚数据
+                            return;
+                        }
                     }
-                    if(!this.isExecute)
-                        break;
                 }
             }
         }else
